@@ -16,6 +16,8 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: "zookeeper:2181"
       KAFKA_INTER_BROKER_LISTENER_NAME: "INTERNAL"
       KAFKA_CREATE_TOPICS: "electrack:28:1"
+    volumes:
+      - kafka-volume:/kafka
     depends_on:
       - zookeeper
   kafdrop:
@@ -27,7 +29,6 @@ services:
       KAFKA_BROKERCONNECT: "kafka:29092"
     depends_on:
       - kafka
-
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.14.1
     environment:
@@ -47,7 +48,6 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
-
   kibana:
     image: docker.elastic.co/kibana/kibana:7.14.1
     environment:
