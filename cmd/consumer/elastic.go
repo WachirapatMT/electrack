@@ -2,27 +2,39 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"github.com/WachirapatMT/electrack/cmd/internal"
 	"github.com/elastic/go-elasticsearch/v8"
 	"github.com/sirupsen/logrus"
 	"sync"
 )
 
-var elasticHosts = []string{"localhost:9200", "localhost:9300"}
+var elasticHosts = []string{"http://localhost:9200", "http://localhost:9300"}
 
+type ElasticResponse = map[string]interface{}
 
-func messageHandler(ctx context.Context, client *elasticsearch.Client, message internal.Message) {
-	res, err := message.GetElasticIndexRequest().Do(ctx, client)
+func messageHandler(client *elasticsearch.Client, message internal.Message) {
+	res, err := message.GetElasticIndexRequest().Do(context.Background(), client)
 	if err != nil {
-		logrus.WithError(err).Error("cannot construct index request")
+		logrus.WithError(err).Error("cannot send http request to elastic")
+		return
 	}
 	defer res.Body.Close()
+
+	if res.IsError() {
+		elasticResponse := ElasticResponse{}
+		err := json.NewDecoder(res.Body).Decode(&elasticResponse)
+		if err != nil {
+			logrus.WithField("body", "unknown").Error("request error when push document to elastic search")
+		} else {
+			logrus.WithField("body", elasticResponse).Error("request error when push document to elastic search")
+		}
+		return
+	}
 }
 
 func elasticListener(wg *sync.WaitGroup, channel chan internal.Message) {
 	defer wg.Done()
-
-	ctx := context.Background()
 
 	client, err := elasticsearch.NewClient(elasticsearch.Config {
 		Addresses: elasticHosts,
@@ -38,6 +50,7 @@ func elasticListener(wg *sync.WaitGroup, channel chan internal.Message) {
 	}
 
 	for message := range channel {
-		messageHandler(ctx, client, message)
+		logrus.Info("message received")
+		messageHandler(client, message)
 	}
 }
