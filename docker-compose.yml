@@ -58,9 +58,9 @@ services:
       - elasticsearch
   metricbeat:
     image: docker.elastic.co/beats/metricbeat
-   environment:
-     - setup.kibana.host=kibana:5601
-     - output.elasticsearch.hosts=["elasticsearch:9200"]
+    environment:
+      - setup.kibana.host=kibana:5601
+      - output.elasticsearch.hosts=["elasticsearch:9200"]
 volumes:
   elasticsearch-data:
     driver: local
