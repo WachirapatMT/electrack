@@ -36,7 +36,7 @@ func stream(wg *sync.WaitGroup, logger *logrus.Entry, file *os.File, channel cha
 
 	err = file.Close()
 	if err != nil {
-		logrus.WithError(err).Warn("cannot close csv file")
+		logger.WithError(err).Warn("cannot close csv file")
 	}
 }
 
@@ -56,7 +56,7 @@ func main() {
 		channel := make(chan internal.Message)
 		producer, err := internal.NewProducer()
 		if err != nil {
-			logger.Error("cannot create new producer")
+			logger.WithError(err).Error("cannot create new producer")
 			continue
 		}
 		sensor := internal.Sensor{
