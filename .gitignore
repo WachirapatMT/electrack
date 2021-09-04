@@ -59,3 +59,4 @@ producer/Furnace 2 [kW].csv
 producer/Garage door [kW].csv
 producer/Home office [kW].csv
 *.csv
+.idea/
