@@ -1,9 +1,12 @@
 package internal
 
-import "github.com/Shopify/sarama"
+import (
+	"github.com/Shopify/sarama"
+	"os"
+)
 
 var (
-	brokers = []string{"127.0.0.1:9092"}
+	brokers = []string{os.Getenv("KAKFA_BROKER_ADDR")}
 	config  *sarama.Config
 )
 
