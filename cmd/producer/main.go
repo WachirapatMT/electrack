@@ -61,7 +61,7 @@ func main() {
 			MessageChannel: channel,
 			SyncProducer:   &producer,
 		}
-		sensor.Start(logger, int32(index))
+		go sensor.Start(logger, int32(index))
 
 		// stream data
 		file, err := os.Open(path.Join(dataPath, fileInfo.Name()))

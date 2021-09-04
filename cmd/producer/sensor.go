@@ -8,11 +8,11 @@ import (
 
 type Sensor struct {
 	MessageChannel chan internal.Message
-	SyncProducer *sarama.SyncProducer
+	SyncProducer   *sarama.SyncProducer
 }
 
 func (s *Sensor) Start(logger *logrus.Entry, sensorID int32) {
-	logger.Info("sensor started")
+	logger.WithField("sensor", sensorID).Info("sensor started")
 	for message := range s.MessageChannel {
 		kafkaMessage, err := message.ToProducerMessage(sensorID)
 		if err != nil {

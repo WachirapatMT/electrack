@@ -27,6 +27,7 @@ func consume(wg *sync.WaitGroup, partition int32, channel chan internal.Message)
 		logger.WithError(err).Error("cannot create new partition consumer")
 		return
 	}
+
 	for consumerMessage := range partitionConsumer.Messages() {
 		message := internal.Message{}
 		err := message.FromConsumerMessage(consumerMessage)
@@ -48,6 +49,7 @@ func main() {
 
 	wg := &sync.WaitGroup{}
 	channel := make(chan internal.Message)
+	logrus.WithField("partitions", partitions).Info("consume partitions")
 	for _, partition := range partitions {
 		wg.Add(1)
 		go consume(wg, partition, channel)
