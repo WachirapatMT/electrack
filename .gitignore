@@ -13,3 +13,49 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+producer/Solar [kW].csv
+producer/summary.csv
+producer/temperature.csv
+producer/visibility.csv
+producer/Well [kW].csv
+producer/windBearing.csv
+producer/windSpeed.csv
+producer/Wine cellar [kW].csv
+producer/Solar [kW].csv
+producer/Well [kW].csv
+producer/Wine cellar [kW].csv
+producer/apparentTemperature.csv
+producer/Barn [kW].csv
+producer/cloudCover.csv
+producer/dewPoint.csv
+producer/Dishwasher [kW].csv
+producer/filename.csv
+producer/Fridge [kW].csv
+producer/Furnace 1 [kW].csv
+producer/Furnace 2 [kW].csv
+producer/Garage door [kW].csv
+producer/Barn [kW].csv
+producer/Dishwasher [kW].csv
+producer/Fridge [kW].csv
+producer/Furnace 1 [kW].csv
+producer/Furnace 2 [kW].csv
+producer/Garage door [kW].csv
+producer/Home office [kW].csv
+producer/humidity.csv
+producer/icon.csv
+producer/Kitchen 12 [kW].csv
+producer/Kitchen 14 [kW].csv
+producer/Kitchen 38 [kW].csv
+producer/Living room [kW].csv
+producer/Microwave [kW].csv
+producer/precipIntensity.csv
+producer/precipProbability.csv
+producer/pressure.csv
+producer/Barn [kW].csv
+producer/Dishwasher [kW].csv
+producer/Fridge [kW].csv
+producer/Furnace 1 [kW].csv
+producer/Furnace 2 [kW].csv
+producer/Garage door [kW].csv
+producer/Home office [kW].csv
+*.csv
