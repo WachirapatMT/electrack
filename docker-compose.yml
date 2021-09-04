@@ -17,7 +17,7 @@ services:
       KAFKA_INTER_BROKER_LISTENER_NAME: "INTERNAL"
       KAFKA_CREATE_TOPICS: "electrack:28:1"
     volumes:
-      - kafka-volume:/kafka
+      - kafka-data:/kafka
     depends_on:
       - zookeeper
   kafdrop:
@@ -59,4 +59,6 @@ services:
 
 volumes:
   elasticsearch-data:
+    driver: local
+  kafka-data:
     driver: local
