@@ -22,7 +22,7 @@ func consume(wg *sync.WaitGroup, partition int32, channel chan internal.Message)
 	defer wg.Done()
 
 	logger := logrus.WithField("partition", partition)
-	partitionConsumer, err := masterConsumer.ConsumePartition(internal.KafkaTopic, partition, sarama.OffsetOldest)
+	partitionConsumer, err := masterConsumer.ConsumePartition(internal.KafkaTopic, partition, sarama.OffsetNewest)
 	if err != nil {
 		logger.WithError(err).Error("cannot create new partition consumer")
 		return
