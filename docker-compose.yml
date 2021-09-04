@@ -1,11 +1,11 @@
 version: "3"
 services:
   zookeeper:
-    image: "wurstmeister/zookeeper:latest"
+    image: docker.io/wurstmeister/zookeeper
     ports:
       - "2181:2181"
   kafka:
-    image: "wurstmeister/kafka:latest"
+    image: docker.io/wurstmeister/kafka
     ports:
       - "9092:9092"
     environment:
@@ -19,7 +19,7 @@ services:
     depends_on:
       - zookeeper
   kafdrop:
-    image: obsidiandynamics/kafdrop
+    image: docker.io/obsidiandynamics/kafdrop
     restart: "no"
     ports:
       - "9000:9000"
