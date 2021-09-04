@@ -24,7 +24,7 @@ func (m *Message) GetElasticIndexRequest() (esapi.IndexRequest, error) {
 	}
 
 	return esapi.IndexRequest{
-		Index: "default",
+		Index: "sensors",
 		DocumentID: m.TimeStamp,
 		Body: strings.NewReader(string(bytes)),
 		Refresh: "true",
