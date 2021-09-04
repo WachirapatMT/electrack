@@ -4,7 +4,7 @@ import "github.com/Shopify/sarama"
 
 var (
 	brokers = []string{"127.0.0.1:9092"}
-	config *sarama.Config
+	config  *sarama.Config
 )
 
 func init() {

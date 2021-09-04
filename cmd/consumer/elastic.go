@@ -42,7 +42,7 @@ func messageHandler(client *elasticsearch.Client, message internal.Message) {
 func elasticListener(wg *sync.WaitGroup, channel chan internal.Message) {
 	defer wg.Done()
 
-	client, err := elasticsearch.NewClient(elasticsearch.Config {
+	client, err := elasticsearch.NewClient(elasticsearch.Config{
 		Addresses: elasticHosts,
 	})
 	if err != nil {

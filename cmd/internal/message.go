@@ -24,10 +24,10 @@ func (m *Message) GetElasticIndexRequest() (esapi.IndexRequest, error) {
 	}
 
 	return esapi.IndexRequest{
-		Index: "sensors",
+		Index:      "sensors",
 		DocumentID: m.TimeStamp,
-		Body: strings.NewReader(string(bytes)),
-		Refresh: "true",
+		Body:       strings.NewReader(string(bytes)),
+		Refresh:    "true",
 	}, nil
 }
 
@@ -40,7 +40,7 @@ func (m *Message) ToProducerMessage(partition int32) (*sarama.ProducerMessage, e
 	return &sarama.ProducerMessage{
 		Topic:     KafkaTopic,
 		Partition: partition,
-		Value: sarama.StringEncoder(bytes),
+		Value:     sarama.StringEncoder(bytes),
 	}, nil
 }
 
