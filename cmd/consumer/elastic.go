@@ -29,12 +29,12 @@ func messageHandler(client *elasticsearch.Client, message internal.Message) {
 
 	if res.IsError() {
 		elasticResponse := ElasticResponse{}
-		err := json.NewDecoder(res.Body).Decode(&elasticResponse)
+		err = json.NewDecoder(res.Body).Decode(&elasticResponse)
+		logger := logrus.WithField("body", elasticResponse)
 		if err != nil {
-			logrus.WithField("body", "unknown").Error("request error when push document to elastic search")
-		} else {
-			logrus.WithField("body", elasticResponse).Error("request error when push document to elastic search")
+			logger.WithField("body", "cannot decode response body")
 		}
+		logger.Error("request error when push document to elastic search")
 		return
 	}
 }
@@ -56,7 +56,6 @@ func elasticListener(wg *sync.WaitGroup, channel chan internal.Message) {
 	}
 
 	for message := range channel {
-		logrus.Info("message received")
 		messageHandler(client, message)
 	}
 }
