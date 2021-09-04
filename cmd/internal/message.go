@@ -17,13 +17,18 @@ type Message struct {
 	Source    string `json:"source"`
 }
 
-func (m *Message) GetElasticIndexRequest() esapi.IndexRequest {
-	return esapi.IndexRequest{
-		Index: m.Source,
-		DocumentID: m.TimeStamp,
-		Body: strings.NewReader(m.Value),
-		Refresh: "true",
+func (m *Message) GetElasticIndexRequest() (esapi.IndexRequest, error) {
+	bytes, err := json.Marshal(m)
+	if err != nil {
+		return esapi.IndexRequest{}, err
 	}
+
+	return esapi.IndexRequest{
+		Index: "default",
+		DocumentID: m.TimeStamp,
+		Body: strings.NewReader(string(bytes)),
+		Refresh: "true",
+	}, nil
 }
 
 func (m *Message) ToProducerMessage(partition int32) (*sarama.ProducerMessage, error) {

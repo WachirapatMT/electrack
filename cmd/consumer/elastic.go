@@ -14,7 +14,13 @@ var elasticHosts = []string{"http://localhost:9200", "http://localhost:9300"}
 type ElasticResponse = map[string]interface{}
 
 func messageHandler(client *elasticsearch.Client, message internal.Message) {
-	res, err := message.GetElasticIndexRequest().Do(context.Background(), client)
+	req, err := message.GetElasticIndexRequest()
+	if err != nil {
+		logrus.WithError(err).Error("cannot construct elastic request")
+		return
+	}
+
+	res, err := req.Do(context.Background(), client)
 	if err != nil {
 		logrus.WithError(err).Error("cannot send http request to elastic")
 		return
