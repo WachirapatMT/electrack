@@ -1,13 +1,13 @@
-package internal
+package main
 
 import (
 	"github.com/Shopify/sarama"
+	"github.com/WachirapatMT/electrack/cmd/internal"
 	"github.com/sirupsen/logrus"
 )
 
 type Sensor struct {
-	MessageChannel chan Message
-
+	MessageChannel chan internal.Message
 	SyncProducer *sarama.SyncProducer
 }
 

@@ -57,7 +57,7 @@ func main() {
 			logger.WithError(err).Error("cannot create new producer")
 			continue
 		}
-		sensor := internal.Sensor{
+		sensor := Sensor{
 			MessageChannel: channel,
 			SyncProducer:   &producer,
 		}

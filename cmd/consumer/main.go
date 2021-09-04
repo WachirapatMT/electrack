@@ -50,7 +50,11 @@ func main() {
 	channel := make(chan internal.Message)
 	for _, partition := range partitions {
 		wg.Add(1)
-		consume(wg, partition, channel)
+		go consume(wg, partition, channel)
 	}
+
+	wg.Add(1)
+	go elasticListener(wg, channel)
+
 	wg.Wait()
 }
