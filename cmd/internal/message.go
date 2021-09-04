@@ -49,7 +49,7 @@ func (m *Message) FromConsumerMessage(message *sarama.ConsumerMessage) error {
 }
 
 func (m *Message) FromCSVLine(line []string) error {
-	if len(line) != 3 {
+	if len(line) != 3 || line[0] == "time" {
 		return errors.New(fmt.Sprintf("invalid csv format (%v)", line))
 	}
 	m.TimeStamp = line[0]
