@@ -10,9 +10,7 @@ import (
 	"sync"
 )
 
-var (
-	dataPath = "data"
-)
+var dataPath = "data"
 
 func stream(wg *sync.WaitGroup, logger *logrus.Entry, file *os.File, channel chan internal.Message) {
 	defer wg.Done()
@@ -28,7 +26,7 @@ func stream(wg *sync.WaitGroup, logger *logrus.Entry, file *os.File, channel cha
 		message := internal.Message{}
 		err := message.FromCSVLine(line)
 		if err != nil {
-			logger.WithError(err).Warn("cannot parse message from csv file")
+			logger.WithError(err).Warn("cannot parse message")
 			continue
 		}
 		channel <- message
@@ -61,7 +59,7 @@ func main() {
 		}
 		sensor := internal.Sensor{
 			MessageChannel: channel,
-			SyncProducer: &producer,
+			SyncProducer:   &producer,
 		}
 		sensor.Start(logger, int32(index))
 

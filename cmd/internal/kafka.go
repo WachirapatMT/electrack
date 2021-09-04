@@ -7,7 +7,6 @@ var (
 	config *sarama.Config
 )
 
-
 func init() {
 	config = sarama.NewConfig()
 
@@ -19,4 +18,8 @@ func init() {
 
 func NewProducer() (sarama.SyncProducer, error) {
 	return sarama.NewSyncProducer(brokers, config)
+}
+
+func NewConsumer() (sarama.Consumer, error) {
+	return sarama.NewConsumer(brokers, config)
 }
