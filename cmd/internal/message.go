@@ -1,6 +1,7 @@
 package internal
 
 import (
+	"crypto/rand"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -9,7 +10,10 @@ import (
 	"strings"
 )
 
-const KafkaTopic = "electrack"
+const (
+	KafkaTopic = "electrack"
+	IDLength = 16
+)
 
 type Message struct {
 	TimeStamp string `json:"time_stamp"`
@@ -23,9 +27,15 @@ func (m *Message) GetElasticIndexRequest() (esapi.IndexRequest, error) {
 		return esapi.IndexRequest{}, err
 	}
 
+	id := make([]byte, 10)
+	_, err = rand.Read(id)
+	if err != nil {
+		return esapi.IndexRequest{}, err
+	}
+
 	return esapi.IndexRequest{
-		Index:      "sensors",
-		DocumentID: m.TimeStamp,
+		Index:      "sensors-data",
+		DocumentID: string(id),
 		Body:       strings.NewReader(string(bytes)),
 		Refresh:    "true",
 	}, nil
