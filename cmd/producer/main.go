@@ -59,7 +59,7 @@ func main() {
 		}
 		sensor := Sensor{
 			MessageChannel: channel,
-			SyncProducer:   &producer,
+			SyncProducer:   producer,
 		}
 		go sensor.Start(logger, int32(index))
 
