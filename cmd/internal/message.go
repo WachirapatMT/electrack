@@ -1,18 +1,17 @@
 package internal
 
 import (
-	"crypto/rand"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"github.com/Shopify/sarama"
 	"github.com/elastic/go-elasticsearch/v8/esapi"
+	"github.com/nu7hatch/gouuid"
 	"strings"
 )
 
 const (
 	KafkaTopic = "electrack"
-	IDLength = 16
 )
 
 type Message struct {
@@ -27,15 +26,14 @@ func (m *Message) GetElasticIndexRequest() (esapi.IndexRequest, error) {
 		return esapi.IndexRequest{}, err
 	}
 
-	id := make([]byte, 10)
-	_, err = rand.Read(id)
+	id, err := uuid.NewV4()
 	if err != nil {
 		return esapi.IndexRequest{}, err
 	}
 
 	return esapi.IndexRequest{
 		Index:      "sensors-data",
-		DocumentID: string(id),
+		DocumentID: id.String(),
 		Body:       strings.NewReader(string(bytes)),
 		Refresh:    "true",
 	}, nil
