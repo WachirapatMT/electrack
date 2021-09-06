@@ -55,8 +55,10 @@ func main() {
 		go consume(wg, partition, channel)
 	}
 
-	wg.Add(1)
-	go elasticListener(wg, channel)
+	for i:=0; i<4; i++ {
+		wg.Add(1)
+		go elasticListener(wg, channel)
+	}
 
 	wg.Wait()
 }
