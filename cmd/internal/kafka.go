@@ -2,6 +2,7 @@ package internal
 
 import (
 	"github.com/Shopify/sarama"
+	"github.com/sirupsen/logrus"
 	"os"
 )
 
@@ -20,6 +21,7 @@ func init() {
 }
 
 func NewProducer() (sarama.SyncProducer, error) {
+	logrus.Infof("new sync producer with %v", brokers)
 	return sarama.NewSyncProducer(brokers, config)
 }
 

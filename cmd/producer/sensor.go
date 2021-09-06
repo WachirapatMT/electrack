@@ -21,7 +21,7 @@ func (s *Sensor) Start(logger *logrus.Entry, sensorID int32) {
 		}
 		_, _, err = (*s.SyncProducer).SendMessage(kafkaMessage)
 		if err != nil {
-			logger.WithError(err).Warn("cannot producer message to kafka")
+			logger.WithError(err).Warn("cannot produce message to kafka")
 		}
 	}
 }
