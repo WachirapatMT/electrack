@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	brokers = []string{os.Getenv("KAKFA_BROKER_ADDR")}
+	brokers = []string{os.Getenv("KAFKA_BROKER_ADDR")}
 	config  *sarama.Config
 )
 
